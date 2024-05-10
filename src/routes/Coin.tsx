@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Route, Switch, useLocation, useParams, useRouteMatch } from "react-router";
+import {
+  Route,
+  Switch,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "./Chart";
