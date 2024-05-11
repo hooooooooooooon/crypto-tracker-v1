@@ -27,11 +27,19 @@ export default function Chart({ coinId }: ChartProps) {
         "Loading chart..."
       ) : (
         <ReactApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
               name: "Price",
-              data: data?.map((price) => price.close) ?? [],
+              data: Array.isArray(data)
+                ? data?.map((price) => [
+                  Number(price.time_close),
+                  price.open,
+                  price.high,
+                  price.low,
+                  price.close,
+                ]) ?? []
+                : [],
             },
           ]}
           options={{
@@ -49,7 +57,7 @@ export default function Chart({ coinId }: ChartProps) {
             grid: { show: false },
             stroke: {
               curve: "smooth",
-              width: 4,
+              width: 1,
             },
             yaxis: {
               show: false,
@@ -59,13 +67,10 @@ export default function Chart({ coinId }: ChartProps) {
               axisTicks: { show: false },
               labels: { show: false },
               type: "datetime",
-              categories: data?.map((price) => price.time_close),
+              categories: Array.isArray(data)
+                ? data?.map((price) => price.time_close)
+                : [],
             },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-            },
-            colors: ["#0fbcf9"],
             tooltip: {
               y: {
                 formatter: (value) => `$${value.toFixed(2)}`,

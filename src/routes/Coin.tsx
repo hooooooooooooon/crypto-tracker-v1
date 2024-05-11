@@ -35,6 +35,27 @@ const Header = styled.header`
   align-items: center;
 `;
 
+const Back = styled.div`
+  background-color: white;
+  color: ${(props) => props.theme.bgColor};
+  border-radius: 15px;
+  margin-bottom: 10px;
+  position: fixed;
+  left: 30px;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: color 0.2s ease-in;
+    font-size: 24px;
+  }
+  &:hover {
+    a {
+      color: ${(props) => props.theme.accentColor};
+    }
+  }
+`;
+
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
@@ -164,6 +185,11 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
+        <Back>
+          <Link to="/">
+            {"<"}
+          </Link>
+        </Back>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -186,7 +212,7 @@ function Coin() {
           <Description>{infoData?.description}</Description>
           <Overview>
             <OverviewItem>
-              <span>Total Suply:</span>
+              <span>Total Supply:</span>
               <span>{tickersData?.total_supply}</span>
             </OverviewItem>
             <OverviewItem>
@@ -206,7 +232,7 @@ function Coin() {
 
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price coinId={coinId} />
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId} />
