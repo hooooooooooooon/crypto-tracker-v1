@@ -22,7 +22,7 @@ interface PriceProps {
   coinId: string;
 }
 
-function Price({ coinId }: PriceProps) {
+export default function Price({ coinId }: PriceProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
     fetchCoinHistory(coinId)
   );
@@ -38,12 +38,7 @@ function Price({ coinId }: PriceProps) {
           <span>Close</span>
           <span></span>
           {data
-            ?.map((price) => [
-              price.open,
-              price.high,
-              price.low,
-              price.close,
-            ])
+            ?.map((price) => [price.open, price.high, price.low, price.close])
             .flat(Infinity)
             .map((item) => <span>{item}</span>) ?? null}
         </PriceList>
@@ -51,5 +46,3 @@ function Price({ coinId }: PriceProps) {
     </div>
   );
 }
-
-export default Price;
