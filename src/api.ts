@@ -16,3 +16,10 @@ export async function fetchCoinTickers(coinId: string) {
     response.json()
   );
 }
+
+export async function fetchCoinHistory(coinId: string) {
+  const CUSTOM_API = `https://ohlcv-api.nomadcoders.workers.dev`;
+  return fetch(`${CUSTOM_API}?coinId=${coinId}`).then((response) =>
+    response.json()
+  );
+}
